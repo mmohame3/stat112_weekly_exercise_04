@@ -12,7 +12,7 @@ output:
 
 
 ```{r setup, include=FALSE}
-#knitr::opts_chunk$set(echo = TRUE, error=TRUE, message=FALSE, warning=FALSE)
+knitr::opts_chunk$set(echo = TRUE, error=TRUE, message=FALSE, warning=FALSE)
 ```
 
 ```{r libraries}
@@ -401,10 +401,6 @@ mpls_nbhd <- st_read("Minneapolis_Neighborhoods/Minneapolis_Neighborhoods.shp", 
 ```
 
 ```{r}
-# mpls_nbhd 
-# mpls_suspicious
-# MplsDemo
-
 mpls_all <- (mpls_nbhd) %>%
   left_join(mpls_suspicious, by = c("BDNAME" = "neighborhood")) %>% 
   left_join(MplsDemo, by = c("BDNAME" = "neighborhood"))
@@ -438,27 +434,14 @@ leaflet(data = mpls_all) %>%
                                  fillOpacity = 0.9,
                                  bringToFront = FALSE),
     popup = ~paste(BDNAME))
-  # %>% 
-  # addCircles(data = mpls_all,
-  #            lng = ~centr_long, 
-  #            lat =  ~centr_lat, 
-  #            # label that appears when you click on the marker,
-  #            # in this case county name and sid_per_1000birth_79
-  #            # rounded to the 2nd decimal
-  #            popup = ~paste(NAME,": ",
-  #                           round(sid_per_1000birth_79, 2),
-  #                           sep=""),
-  #            radius = 2)
-
+  
 
 ```
 
   18. Use `leaflet` to create a map of your own choosing. Come up with a question you want to try to answer and use the map to help answer that question. Describe what your map shows. 
   
-  Question: Try to visualise the relationship between sus_prop and poverty
-```{r}
-# as.data.frame(mpls_all)
-```
+  Question: Is there a relationship between sus_prop and poverty
+
 ```{r}
 pal3 <- colorNumeric("viridis", 
                      domain = mpls_all$sus_prop)
